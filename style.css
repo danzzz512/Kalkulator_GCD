@@ -1,64 +1,94 @@
-/* Tambahkan atau perbarui CSS ini di file style.css Anda */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #2c003e, #32004b, #470067);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
 
-.step-section {
-    position: relative;
-    overflow: hidden;
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: #4e2a84;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+h1, h2 {
+    margin: 10px 0;
+}
+
+.input-section {
+    margin: 20px 0;
+}
+
+input {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    width: 150px;
+    text-align: center;
+    font-size: 1em;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    background: #7d1fff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #a64dff;
+}
+
+.result-box {
+    background: #6a38a5;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 1.2em;
 }
 
 #visual-steps-container {
+    background: #b6a6d9;
+    color: black;
     padding: 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    border: 1px solid #d0e0ff;
-    margin-top: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.1em;
 }
 
 .step-line {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 0;
-    font-size: 1.2em;
-    font-weight: 500;
+    margin: 12px 0;
 }
 
-.step-equation {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-.arrow-down {
-    width: 20px;
-    height: 30px;
-    border-left: 2px solid #555;
-    position: relative;
-    margin: 0 10px;
-}
-
-.arrow-down::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: -5px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #555;
-}
-
-.connector-line {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin: 15px 0;
-}
-
-.connector-line .arrow-down-container {
-    position: absolute;
-    width: 100%;
+.connector-arrows {
     display: flex;
     justify-content: space-between;
+    margin: 5px 30px;
+}
+
+.arrow-left, .arrow-right {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: relative;
+}
+
+.arrow-left::after, .arrow-right::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid black;
 }
