@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let steps = [];
 
-    // Fungsi untuk menghitung GCD dan menyimpan langkah-langkahnya
+    // Euclid biasa
     const calculateGCD = (a, b) => {
         let tempSteps = [];
         let tempA = a;
@@ -24,101 +24,90 @@ document.addEventListener('DOMContentLoaded', () => {
         return { gcd: tempA, steps: tempSteps };
     };
 
-    // Fungsi untuk membuat tampilan visual GCD
+    // Extended Euclid
+    const extendedEuclid = (a, b) => {
+        if (b === 0) {
+            return { x: 1, y: 0, gcd: a, history: [`${a}(1) + ${b}(0) = ${a}`] };
+        }
+        let { x: x1, y: y1, gcd, history } = extendedEuclid(b, a % b);
+        let x = y1;
+        let y = x1 - Math.floor(a / b) * y1;
+        history.push(`${a}(${x}) + ${b}(${y}) = ${gcd}`);
+        return { x, y, gcd, history };
+    };
+
+    // Visualisasi langkah Euclid
     const createVisualSteps = (steps) => {
         visualStepsContainer.innerHTML = '';
         if (steps.length === 0) return;
 
-        steps.forEach((step) => {
-            const stepLine = document.createElement('div');
-            stepLine.classList.add('step-line');
-            stepLine.innerHTML = `$${step.a} = ${step.q} \\times ${step.b} + ${step.r}$`;
-            visualStepsContainer.appendChild(stepLine);
+        steps.forEach((step, i) => {
+            const line = document.createElement('div');
+            line.classList.add('step-line');
+            line.innerHTML = `$${step.a} = ${step.q}\\times${step.b} + ${step.r}$`;
+            visualStepsContainer.appendChild(line);
 
-            const connectorLine = document.createElement('div');
-            connectorLine.classList.add('connector-line');
-            connectorLine.innerHTML = `<div class="arrow-down"></div>`;
-            visualStepsContainer.appendChild(connectorLine);
+            if (i < steps.length - 1) {
+                const connector = document.createElement('div');
+                connector.classList.add('connector-arrows');
+                connector.innerHTML = `
+                    <div class="arrow-left"></div>
+                    <div class="arrow-right"></div>
+                `;
+                visualStepsContainer.appendChild(connector);
+            }
         });
-        
-        // Hapus panah terakhir yang tidak perlu
-        if (visualStepsContainer.lastChild) {
-            visualStepsContainer.removeChild(visualStepsContainer.lastChild);
-        }
-
         MathJax.typesetPromise();
     };
 
-    // Fungsi untuk menyusun kombinasi linear dari langkah-langkah
-    const generateLinearCombination = (steps) => {
-        let combSteps = [];
-        const rearrangedEquations = steps.filter(step => step.r !== 0);
+    // Kombinasi linear dinamis
+    const generateLinearCombination = (a, b) => {
+        let { x, y, gcd, history } = extendedEuclid(a, b);
 
-        combSteps.push("Pertama, susun ulang setiap baris menjadi bentuk sisa =");
-        rearrangedEquations.forEach(eq => {
-            combSteps.push(`$${eq.r} = ${eq.a} - ${eq.q}\\times${eq.b}$`);
-        });
+        let resultSteps = [];
+        resultSteps.push("Langkah penyusunan kombinasi linear:");
+        history.forEach(eq => resultSteps.push(`$${eq}$`));
+        resultSteps.push("---");
+        resultSteps.push(`Sehingga: $${a}(${x}) + ${b}(${y}) = ${gcd}$`);
 
-        combSteps.push("Mulai dari baris terakhir:");
-
-        // Menampilkan langkah-langkah kombinasi linear dari contoh yang Anda berikan
-        // Ini tidak dinamis, tetapi sesuai dengan permintaan Anda sebelumnya
-        combSteps.push(`$2=(1)\\times32-(5)\\times6$`);
-        combSteps.push(`Kemudian, substitusikan $6=70-2\\times32$`);
-        combSteps.push(`$2=(1)\\times32-(5)\\times(70-2\\times32)$`);
-        combSteps.push(`$2=(1)\\times32-(5)\\times70+(10)\\times32$`);
-        combSteps.push(`$2=(11)\\times32-(5)\\times70$`);
-        combSteps.push(`Kemudian, substitusikan $32=312-4\\times70;$`);
-        combSteps.push(`$2=(11)\\times(312-4\\times70)-(5)\\times70$`);
-        combSteps.push(`$2=(11)\\times312-(44)\\times70-(5)\\times70$`);
-        combSteps.push(`$2=(11)\\times312+(-49)\\times70$`);
-        combSteps.push("---");
-        combSteps.push(`Jadi, hasil akhirnya adalah: $11\\times312+(-49)\\times70=2$`);
-
-        return combSteps;
+        return resultSteps;
     };
 
-    // Event listener untuk tombol "Lihat Proses"
-    if (lihatProsesBtn) {
-        lihatProsesBtn.addEventListener('click', () => {
-            const bilangan1 = parseInt(document.getElementById('bilangan1').value);
-            const bilangan2 = parseInt(document.getElementById('bilangan2').value);
+    // Event listener tombol Lihat Proses
+    lihatProsesBtn.addEventListener('click', () => {
+        const bilangan1 = parseInt(document.getElementById('bilangan1').value);
+        const bilangan2 = parseInt(document.getElementById('bilangan2').value);
 
-            if (isNaN(bilangan1) || isNaN(bilangan2) || bilangan1 < 0 || bilangan2 < 0) {
-                alert('Silakan masukkan dua bilangan bulat non-negatif yang valid.');
-                return;
-            }
-            
-            hasilContainer.classList.add('hidden');
-            tampilkanKombinasiBtn.classList.add('hidden');
-            kombinasiContainer.classList.add('hidden');
-            
-            const { gcd, steps: calcSteps } = calculateGCD(bilangan1, bilangan2);
-            steps = calcSteps;
-            
-            hasilGCD.textContent = `✓ GCD(${bilangan1}, ${bilangan2}) = ${gcd}`;
-            
-            createVisualSteps(steps);
-            
-            hasilContainer.classList.remove('hidden');
-            tampilkanKombinasiBtn.classList.remove('hidden');
+        if (isNaN(bilangan1) || isNaN(bilangan2) || bilangan1 <= 0 || bilangan2 <= 0) {
+            alert('Masukkan dua bilangan bulat positif.');
+            return;
+        }
+
+        const { gcd, steps: calcSteps } = calculateGCD(bilangan1, bilangan2);
+        steps = calcSteps;
+
+        hasilGCD.innerHTML = `✓ GCD(${bilangan1}, ${bilangan2}) = <b>${gcd}</b>`;
+        createVisualSteps(steps);
+
+        hasilContainer.classList.remove('hidden');
+        tampilkanKombinasiBtn.classList.remove('hidden');
+        kombinasiContainer.classList.add('hidden');
+    });
+
+    // Event listener tombol Kombinasi Linear
+    tampilkanKombinasiBtn.addEventListener('click', () => {
+        kombinasiList.innerHTML = '';
+        const bilangan1 = parseInt(document.getElementById('bilangan1').value);
+        const bilangan2 = parseInt(document.getElementById('bilangan2').value);
+
+        const combSteps = generateLinearCombination(bilangan1, bilangan2);
+        combSteps.forEach(step => {
+            const p = document.createElement('p');
+            p.innerHTML = step;
+            kombinasiList.appendChild(p);
         });
-    }
 
-    // Event listener untuk tombol "Tampilkan Kombinasi Linear"
-    if (tampilkanKombinasiBtn) {
-        tampilkanKombinasiBtn.addEventListener('click', () => {
-            kombinasiList.innerHTML = '';
-            const combSteps = generateLinearCombination(steps);
-            
-            combSteps.forEach(step => {
-                const p = document.createElement('p');
-                p.innerHTML = step;
-                kombinasiList.appendChild(p);
-            });
-
-            kombinasiContainer.classList.remove('hidden');
-            MathJax.typesetPromise();
-        });
-    }
+        kombinasiContainer.classList.remove('hidden');
+        MathJax.typesetPromise();
+    });
 });
