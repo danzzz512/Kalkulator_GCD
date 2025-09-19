@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Algoritma Euclid GCD</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator GCD</h1>
+        <p>Algoritma Euclid</p>
+        <h2>Tugas Teori Bilangan</h2>
+        <p>Daniel Prasetio Aruan - 140110220075</p>
+
+        <div class="input-section">
+            <label for="bilangan1">Bilangan Pertama:</label>
+            <input type="number" id="bilangan1" placeholder="Masukkan bilangan bulat" value="312">
+            <label for="bilangan2">Bilangan Kedua:</label>
+            <input type="number" id="bilangan2" placeholder="Masukkan bilangan bulat" value="70">
+            <button id="lihatProsesBtn">Lihat Proses</button>
+        </div>
+
+        <div id="hasil-container" class="hidden">
+            <div class="result-box">
+                <p id="hasilGCD"></p>
+            </div>
+
+            <div id="langkah-langkah" class="step-section">
+                <h2>Langkah-langkah:</h2>
+                <div id="langkah-list"></div>
+            </div>
+
+            <div class="button-container">
+                <button id="tampilkanKombinasiBtn" class="hidden">Tampilkan Kombinasi Linear</button>
+            </div>
+            
+            <div id="kombinasi-container" class="hidden step-section">
+                <h2>Menyusun Kombinasi Linear:</h2>
+                <div id="kombinasi-list"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
