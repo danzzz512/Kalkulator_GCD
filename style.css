@@ -1,0 +1,64 @@
+/* Tambahkan atau perbarui CSS ini di file style.css Anda */
+
+.step-section {
+    position: relative;
+    overflow: hidden;
+}
+
+#visual-steps-container {
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    border: 1px solid #d0e0ff;
+    margin-top: 20px;
+}
+
+.step-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.step-equation {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.arrow-down {
+    width: 20px;
+    height: 30px;
+    border-left: 2px solid #555;
+    position: relative;
+    margin: 0 10px;
+}
+
+.arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #555;
+}
+
+.connector-line {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 15px 0;
+}
+
+.connector-line .arrow-down-container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
