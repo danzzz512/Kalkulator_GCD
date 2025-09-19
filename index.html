@@ -1,47 +1,97 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Algoritma Euclid GCD</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>Kalkulator GCD</h1>
-        <p>Algoritma Euclid</p>
-        <h2>Tugas Teori Bilangan</h2>
-        <p>Daniel Prasetio Aruan - 140110220075</p>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #2c003e, #32004b, #470067);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
 
-        <div class="input-section">
-            <label for="bilangan1">Bilangan Pertama:</label>
-            <input type="number" id="bilangan1" placeholder="Masukkan bilangan bulat" value="312">
-            <label for="bilangan2">Bilangan Kedua:</label>
-            <input type="number" id="bilangan2" placeholder="Masukkan bilangan bulat" value="70">
-            <button id="lihatProsesBtn">Lihat Proses</button>
-        </div>
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: #4e2a84;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
 
-        <div id="hasil-container" class="hidden">
-            <div class="result-box">
-                <p id="hasilGCD"></p>
-            </div>
+h1, h2 {
+    margin: 10px 0;
+}
 
-            <div id="langkah-langkah" class="step-section">
-                <h2>Langkah-langkah:</h2>
-                <div id="visual-steps-container"></div>
-            </div>
+.input-section {
+    margin: 20px 0;
+}
 
-            <div class="button-container">
-                <button id="tampilkanKombinasiBtn" class="hidden">Tampilkan Kombinasi Linear</button>
-            </div>
-            
-            <div id="kombinasi-container" class="hidden step-section">
-                <h2>Menyusun Kombinasi Linear:</h2>
-                <div id="kombinasi-list"></div>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+input {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    width: 150px;
+    text-align: center;
+    font-size: 1em;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    background: #7d1fff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #a64dff;
+}
+
+.result-box {
+    background: #6a38a5;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+#visual-steps-container {
+    background: #b6a6d9;
+    color: black;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.step-line {
+    margin: 12px 0;
+}
+
+.connector-arrows {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 30px;
+}
+
+.arrow-left, .arrow-right {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: relative;
+}
+
+.arrow-left::after, .arrow-right::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid black;
+}
+</style>
